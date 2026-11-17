@@ -1,4 +1,3 @@
-"""Fans a message out to every platform concurrently; one failure never stops the others."""
 import asyncio
 import logging
 from datetime import datetime
@@ -23,7 +22,7 @@ class PostingService:
     ):
         self.settings = settings
         self.platforms = platforms
-        self.transport = transport  # injectable for tests
+        self.transport = transport
         self.tz = ZoneInfo(settings.timezone)
 
     async def _post_one(self, platform: BasePlatform, req: PostRequest, client: httpx.AsyncClient) -> PlatformResult:
@@ -35,7 +34,7 @@ class PostingService:
             error = f"Request to {platform.name} timed out after {self.settings.request_timeout}s"
         except httpx.HTTPError as exc:
             error = f"Network error contacting {platform.name}: {exc.__class__.__name__}: {exc}"
-        except Exception as exc:  # unexpected payload shapes etc. – never break the batch
+        except Exception as exc:
             logger.exception("Unexpected error on %s", platform.name)
             error = f"Unexpected error: {exc.__class__.__name__}: {exc}"
         else:

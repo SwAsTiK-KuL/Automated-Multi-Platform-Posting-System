@@ -1,4 +1,3 @@
-"""Mastodon – https://docs.joinmastodon.org/methods/statuses/#create"""
 import uuid
 
 import httpx

@@ -1,9 +1,3 @@
-"""Bluesky (AT Protocol)
-
-- Auth:  com.atproto.server.createSession  https://docs.bsky.app/docs/api/com-atproto-server-create-session
-- Post:  com.atproto.repo.createRecord      https://docs.bsky.app/docs/advanced-guides/posts
-Links are only clickable on Bluesky when sent as a "facet" with UTF-8 byte offsets.
-"""
 from datetime import datetime, timezone
 
 import httpx
@@ -52,7 +46,7 @@ class BlueskyPlatform(BasePlatform):
             json={"repo": s["did"], "collection": "app.bsky.feed.post", "record": record},
         )
         self.raise_for_status(resp, self.name)
-        uri = resp.json().get("uri", "")  # at://did:plc:xxx/app.bsky.feed.post/<rkey>
+        uri = resp.json().get("uri", "")
         if not uri:
             raise PlatformError("Bluesky did not return a record URI")
         rkey = uri.rsplit("/", 1)[-1]

@@ -1,8 +1,3 @@
-"""Telegram Bot API – https://core.telegram.org/bots/api#sendmessage
-
-Posts to a channel the bot is an admin of. Public channels (with a @username)
-produce a public t.me link; private channels produce a members-only link.
-"""
 import httpx
 
 from app.platforms.base import BasePlatform, PlatformError, PublishResult

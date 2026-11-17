@@ -1,4 +1,3 @@
-"""FastAPI entry point.  Run:  uvicorn app.main:app --host 0.0.0.0 --port 4000"""
 import logging
 from pathlib import Path
 

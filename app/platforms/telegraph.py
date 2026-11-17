@@ -1,8 +1,3 @@
-"""Telegraph (telegra.ph) – https://telegra.ph/api
-
-Works without any pre-shared credentials: if TELEGRAPH_ACCESS_TOKEN is empty an
-anonymous account is created via `createAccount` and its token is reused.
-"""
 import json
 
 import httpx

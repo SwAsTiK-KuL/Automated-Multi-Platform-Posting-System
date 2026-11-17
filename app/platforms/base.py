@@ -1,4 +1,3 @@
-"""Common interface every platform integration implements."""
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Optional
@@ -9,7 +8,7 @@ from app.config import Settings
 
 
 class PlatformError(Exception):
-    """Raised by an integration with a human-readable failure reason."""
+    ...
 
 
 class PlatformNotConfigured(PlatformError):
@@ -24,7 +23,6 @@ class PublishResult:
 
 class BasePlatform(ABC):
     name: str = "Base"
-    #: env vars that must be set for this platform to run
     required_settings: tuple[str, ...] = ()
 
     def __init__(self, settings: Settings):
@@ -40,9 +38,8 @@ class BasePlatform(ABC):
 
     @abstractmethod
     async def publish(self, message: str, link: str, client: httpx.AsyncClient) -> PublishResult:
-        """Publish `message` and return where it lives. Raise PlatformError on failure."""
+        ...
 
-    # ---- helpers -------------------------------------------------------
     @staticmethod
     def raise_for_status(response: httpx.Response, platform: str) -> None:
         if response.is_success:

@@ -1,11 +1,3 @@
-"""Hugging Face Hub (LLM platform) – community discussions
-
-Creates a public discussion on a model / dataset / Space you own, via the same
-endpoint `huggingface_hub.HfApi.create_discussion` uses:
-  POST https://huggingface.co/api/{repo_type}s/{repo_id}/discussions
-Docs: https://huggingface.co/docs/huggingface_hub/guides/community
-Token needs write access (fine-grained: "Interact with discussions").
-"""
 import httpx
 
 from app.platforms.base import BasePlatform, PlatformError, PublishResult

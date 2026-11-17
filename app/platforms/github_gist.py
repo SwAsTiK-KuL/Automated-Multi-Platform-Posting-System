@@ -1,7 +1,3 @@
-"""GitHub Gists – https://docs.github.com/en/rest/gists/gists#create-a-gist
-
-Token needs only the `gist` scope (classic) or "Gists: read & write" (fine-grained).
-"""
 import httpx
 
 from app.platforms.base import BasePlatform, PublishResult

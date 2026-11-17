@@ -1,4 +1,3 @@
-"""Request / response models and input validation."""
 import ipaddress
 import re
 from enum import Enum
@@ -9,9 +8,7 @@ from pydantic import BaseModel, Field, field_validator
 
 MAX_MESSAGE_LENGTH = 200
 
-# Anything that looks like a link: explicit scheme or a bare "www." host.
 LINK_PATTERN = re.compile(r"(?:https?://|www\.)[^\s<>\"']+", re.IGNORECASE)
-# Trailing punctuation that is usually sentence punctuation, not part of the URL.
 TRAILING_PUNCT = ".,;:!?)]}'\""
 HOSTNAME_LABEL = re.compile(r"^(?!-)[a-z0-9-]{1,63}(?<!-)$", re.IGNORECASE)
 
@@ -29,7 +26,6 @@ def _is_ip(host: str) -> bool:
 
 
 def validate_url(url: str) -> None:
-    """Raise ValueError if `url` is not a usable public http(s) URL."""
     parsed = urlparse(url)
     if parsed.scheme.lower() not in ("http", "https"):
         raise ValueError(f"CTA link '{url}' must start with http:// or https://")

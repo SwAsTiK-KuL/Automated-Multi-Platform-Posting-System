@@ -1,4 +1,3 @@
-"""Platform registry. Platform selection is internal: every registered platform is used."""
 from app.config import Settings
 from app.platforms.base import BasePlatform
 from app.platforms.bluesky import BlueskyPlatform

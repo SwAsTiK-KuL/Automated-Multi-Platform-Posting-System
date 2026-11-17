@@ -1,8 +1,3 @@
-"""Discord – Execute Webhook  https://discord.com/developers/docs/resources/webhook#execute-webhook
-
-`?wait=true` makes Discord return the created message object. Discord messages
-are only visible to server members, so public_access is reported as False.
-"""
 import httpx
 
 from app.platforms.base import BasePlatform, PublishResult

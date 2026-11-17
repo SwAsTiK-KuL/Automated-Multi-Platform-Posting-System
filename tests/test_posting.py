@@ -30,7 +30,6 @@ FULL_SETTINGS = Settings(
 
 
 def fake_api(request: httpx.Request) -> httpx.Response:
-    """Mimics each provider's documented success response."""
     url = str(request.url)
     if "api.telegra.ph/createPage" in url:
         return httpx.Response(200, json={"ok": True, "result": {"url": "https://telegra.ph/Check-out-11-17"}})
@@ -65,14 +64,13 @@ def make_client(settings: Settings, handler=fake_api) -> TestClient:
 
 @pytest.fixture(autouse=True)
 def _reset(monkeypatch):
-    for field in Settings.model_fields:  # isolate tests from real credentials in the shell
+    for field in Settings.model_fields:
         monkeypatch.delenv(field.upper(), raising=False)
     TelegraphPlatform._cached_token = None
     yield
     app.dependency_overrides.clear()
 
 
-# ---------------- validation ----------------
 @pytest.mark.parametrize(
     "message, expected",
     [
@@ -105,7 +103,6 @@ def test_trailing_punctuation_is_not_part_of_link():
     assert resp.status_code == 200
 
 
-# ---------------- posting ----------------
 def test_posts_to_all_platforms():
     resp = make_client(FULL_SETTINGS).post("/posting", json={"message": VALID})
     assert resp.status_code == 200
@@ -143,7 +140,7 @@ def test_one_failure_does_not_stop_others():
 
 
 def test_unconfigured_platforms_fail_gracefully():
-    settings = Settings(_env_file=None)  # nothing configured; Telegraph creates its own account
+    settings = Settings(_env_file=None)
 
     def handler(request):
         if "createAccount" in str(request.url):
